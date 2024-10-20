@@ -14,50 +14,42 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Permissions untuk mengelola gudang
-        Permission::create(['name' => 'manage everything']);
         
-        // Permissions untuk penerimaan barang
-        Permission::create(['name' => 'access penerimaan']);
-        Permission::create(['name' => 'create penerimaan']);
-        Permission::create(['name' => 'edit penerimaan']);
-        Permission::create(['name' => 'delete penerimaan']);
-        Permission::create(['name' => 'approve penerimaan']);
-
-        // Permissions untuk pengiriman barang
-        Permission::create(['name' => 'access pengiriman']);
-        Permission::create(['name' => 'create pengiriman']);
-        Permission::create(['name' => 'edit pengiriman']);
-        Permission::create(['name' => 'delete pengiriman']);
-        Permission::create(['name' => 'approve pengiriman']);
-
-        // Permissions untuk laporan
-        Permission::create(['name' => 'access laporan penggunaan']);
-        Permission::create(['name' => 'generate laporan penggunaan']);
-        Permission::create(['name' => 'export laporan penggunaan']);
+        Permission::create(['name' => 'tambah-user']);
+        Permission::create(['name' => 'edit-user']);
+        Permission::create(['name' => 'hapus-user']);
+        Permission::create(['name' => 'lihat-user']);
 
 
-        Role::create(['name' => 'superuser']);
+        Permission::create(['name' => 'tambah-buku']);
+        Permission::create(['name' => 'edit-buku']);
+        Permission::create(['name' => 'hapus-buku']);
+        Permission::create(['name' => 'lihat-buku']);
+       
+
+        Permission::create(['name' => 'pinjam-buku']);
+        Permission::create(['name' => 'kembalikan-buku']);
+        
+
         Role::create(['name' => 'admin']);
+        Role::create(['name' => 'user']);
 
-        $roleSuperuser = Role::findByName('superuser');
-        $roleSuperuser->givePermissionTo([
+        $roleAdmin = Role::findByName('admin');
+        $roleAdmin -> givePermissionTo([
             'tambah-user',
             'hapus-user',
             'edit-user',
             'lihat-user',
-            'tambah-barang',
-            'hapus-barang',
-            'edit-barang',
-            'lihat-barang',
+            'tambah-buku',
+            'hapus-buku',
+            'edit-buku',
+            'lihat-buku',
         ]);
 
-        $roleAdmin = Role::findByName('admin');
-        $roleAdmin->givePermissionTo([
-            'tambah-barang',
-            'hapus-barang',
-            'edit-barang',
-            'lihat-barang',
+        $roleUser = Role::findByName('user');
+        $roleUser->givePermissionTo([
+            'pinjam-buku',
+            'kembalikan-buku',
         ]); 
 
     }
